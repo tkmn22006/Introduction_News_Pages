@@ -82,7 +82,7 @@ public class NewsFragment extends  Fragment{
         int [] imagenews = {R.drawable.new1,R.drawable.new2,R.drawable.new3};
         String [] texttitle = {"news1","new2","new3"};
 
-        View rootview = inflater.inflate(R.layout.fragment_news, container, false);;
+        View rootview = inflater.inflate(R.layout.fragment_news, container, false);
 
 
         mListView = (ListView) rootview.findViewById(R.id.listView);

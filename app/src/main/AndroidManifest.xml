@@ -21,7 +21,8 @@
         <activity android:name=".news_page.News_Page_Activity" />
         <activity android:name=".map_page.Map_Page_Activity" />
         <activity android:name=".mission_page.Mission_Page_Activity" />
-        <activity android:name=".Testing"></activity>
+        <activity android:name=".Testing" />
+        <activity android:name=".ContactActivity"></activity>
     </application>
 
 </manifest>

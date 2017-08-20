@@ -1,15 +1,23 @@
 package com.example.user.introductionpageandnewspage.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.user.introductionpageandnewspage.ContactActivity;
 import com.example.user.introductionpageandnewspage.R;
+import com.example.user.introductionpageandnewspage.ViewPagerAdapter;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -25,6 +33,7 @@ public class HomeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    ViewPager viewPager;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -61,13 +70,52 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity());
+        viewPager.setAdapter(adapter);
+
+        Timer timer = new Timer();
+       // timer.scheduleAtFixedRate(new MyTimerTask(),2000,4000);   --> bug of slider image
+
+        ImageView contact = (ImageView)view.findViewById(R.id.contact);
+        contact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ContactActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        return view;
+    }
+
+    public class MyTimerTask extends TimerTask{
+
+        @Override
+        public void run() {
+          getActivity().runOnUiThread(new Runnable(){
+                @Override
+                public void run() {
+                    if(viewPager.getCurrentItem()==0){
+                        viewPager.setCurrentItem(1);
+                    }else if(viewPager.getCurrentItem()==1){
+                        viewPager.setCurrentItem(2);
+                    }else{
+                        viewPager.setCurrentItem(0);
+                    }
+                }
+
+            });
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
